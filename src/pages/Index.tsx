@@ -3,47 +3,50 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Shield, Cpu, Globe, Leaf, Zap, Lock, BarChart3 } from "lucide-react";
 import AnimatedGridBackground from "@/components/AnimatedGridBackground";
 import Navbar from "@/components/Navbar";
-import SafeManLogo from "@/components/SafeManLogo";
 import PillarCard from "@/components/PillarCard";
 import SystemVisualization from "@/components/SystemVisualization";
 import GlassCard from "@/components/GlassCard";
-
-const pillars = [
-  {
-    icon: Cpu,
-    title: "Process Safety",
-    subtitle: "Industrial Operations",
-    description: "Intelligent workflow automation for permits, risk assessments, and incident reporting across all industrial operations.",
-    features: ["Permit-to-work systems", "Risk assessments", "Incident reporting", "Audit trails"],
-    glowColor: "blue" as const,
-  },
-  {
-    icon: Shield,
-    title: "Physical Safety",
-    subtitle: "Workplace Protection",
-    description: "Comprehensive HSE management covering equipment inspections, maintenance monitoring, and safety training.",
-    features: ["Equipment inspections", "Maintenance tracking", "Safety training", "Investigations"],
-    glowColor: "green" as const,
-  },
-  {
-    icon: Globe,
-    title: "Network Safety",
-    subtitle: "Cyber Defense",
-    description: "Enterprise-grade cybersecurity with real-time threat monitoring, data isolation, and security event intelligence.",
-    features: ["Threat monitoring", "Data isolation", "Security events", "Infrastructure audit"],
-    glowColor: "violet" as const,
-  },
-  {
-    icon: Leaf,
-    title: "Environmental Safety",
-    subtitle: "Sustainability Intelligence",
-    description: "Climate-aware monitoring for emissions, waste management, and environmental compliance reporting.",
-    features: ["Emissions tracking", "Carbon metrics", "Waste management", "Compliance reports"],
-    glowColor: "orange" as const,
-  },
-];
+import { useLanguage } from "@/i18n/LanguageContext";
+import safemanLogo from "@/assets/safeman-logo.png";
 
 const Index = () => {
+  const { t } = useLanguage();
+
+  const pillars = [
+    {
+      icon: Cpu,
+      title: t("pillar.process.title"),
+      subtitle: t("pillar.process.subtitle"),
+      description: t("pillar.process.desc"),
+      features: [t("feat.permit"), t("feat.risk"), t("feat.incident"), t("feat.audit")],
+      glowColor: "blue" as const,
+    },
+    {
+      icon: Shield,
+      title: t("pillar.physical.title"),
+      subtitle: t("pillar.physical.subtitle"),
+      description: t("pillar.physical.desc"),
+      features: [t("feat.equipment"), t("feat.maintenance"), t("feat.training"), t("feat.investigations")],
+      glowColor: "green" as const,
+    },
+    {
+      icon: Globe,
+      title: t("pillar.network.title"),
+      subtitle: t("pillar.network.subtitle"),
+      description: t("pillar.network.desc"),
+      features: [t("feat.threat"), t("feat.isolation"), t("feat.securityEvents"), t("feat.infraAudit")],
+      glowColor: "violet" as const,
+    },
+    {
+      icon: Leaf,
+      title: t("pillar.env.title"),
+      subtitle: t("pillar.env.subtitle"),
+      description: t("pillar.env.desc"),
+      features: [t("feat.emissions"), t("feat.carbon"), t("feat.waste"), t("feat.compliance")],
+      glowColor: "orange" as const,
+    },
+  ];
+
   return (
     <div className="min-h-screen relative">
       <AnimatedGridBackground />
@@ -57,22 +60,22 @@ const Index = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="mb-8">
-              <SafeManLogo size="lg" />
+            <div className="mb-8 flex justify-center">
+              <img src={safemanLogo} alt="Safe-Man" className="h-16 md:h-20 w-auto" />
             </div>
             <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              The Future of{" "}
-              <span className="text-gradient-blue">Safety</span>{" "}
-              Management
+              {t("hero.title1")}{" "}
+              <span className="text-gradient-blue">{t("hero.titleHighlight")}</span>{" "}
+              {t("hero.title2")}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 font-body leading-relaxed">
-              Safe-Man unifies industrial safety, cybersecurity, and environmental intelligence into a single command platform.
+              {t("hero.subtitle")}
             </p>
             <Link
               to="/dashboard"
               className="inline-flex items-center gap-3 px-8 py-4 font-display text-sm font-bold tracking-widest uppercase bg-primary/10 border border-primary/40 rounded-lg text-primary hover:bg-primary/20 transition-all duration-500 glow-border-blue group"
             >
-              Enter the Safety Command Center
+              {t("hero.cta")}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </motion.div>
@@ -90,18 +93,17 @@ const Index = () => {
               transition={{ duration: 0.6 }}
             >
               <h2 className="font-display text-3xl font-bold mb-4">
-                One Platform.{" "}
-                <span className="text-gradient-green">Four Domains.</span>
+                {t("system.title1")}{" "}
+                <span className="text-gradient-green">{t("system.titleHighlight")}</span>
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                A central safety intelligence engine connected to four integrated safety modules, 
-                replacing fragmented tools with unified command and control.
+                {t("system.desc")}
               </p>
               <div className="flex flex-wrap gap-3">
                 {[
-                  { icon: Zap, text: "Real-time Intelligence" },
-                  { icon: Lock, text: "Enterprise Security" },
-                  { icon: BarChart3, text: "Advanced Analytics" },
+                  { icon: Zap, text: t("system.realtime") },
+                  { icon: Lock, text: t("system.security") },
+                  { icon: BarChart3, text: t("system.analytics") },
                 ].map((item, i) => (
                   <div key={i} className="flex items-center gap-2 glass-panel px-4 py-2 text-xs font-mono text-muted-foreground">
                     <item.icon className="w-3.5 h-3.5 text-primary" />
@@ -125,10 +127,10 @@ const Index = () => {
             className="text-center mb-14"
           >
             <h2 className="font-display text-3xl font-bold mb-3">
-              Core Safety <span className="text-gradient-blue">Pillars</span>
+              {t("pillars.title1")} <span className="text-gradient-blue">{t("pillars.titleHighlight")}</span>
             </h2>
             <p className="text-muted-foreground font-mono text-sm tracking-wider">
-              FOUR INTEGRATED DOMAINS • ONE UNIFIED PLATFORM
+              {t("pillars.subtitle")}
             </p>
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -144,16 +146,16 @@ const Index = () => {
         <div className="container max-w-3xl mx-auto text-center">
           <GlassCard glowColor="blue" className="p-12">
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-4">
-              Ready to Transform Safety Operations?
+              {t("cta.title")}
             </h2>
             <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-              Deploy Safe-Man across your organization and gain unified visibility into every safety dimension.
+              {t("cta.desc")}
             </p>
             <Link
               to="/dashboard"
               className="inline-flex items-center gap-3 px-8 py-4 font-display text-sm font-bold tracking-widest uppercase bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all duration-300 group"
             >
-              Launch Command Center
+              {t("cta.button")}
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </GlassCard>
@@ -163,9 +165,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="relative z-10 border-t border-border py-8 px-4">
         <div className="container flex items-center justify-between">
-          <SafeManLogo size="sm" />
+          <img src={safemanLogo} alt="Safe-Man" className="h-6 w-auto" />
           <p className="text-xs font-mono text-muted-foreground">
-            © 2026 SAFE-MAN • SAFETY MANAGEMENT PLATFORM
+            {t("footer.copyright")}
           </p>
         </div>
       </footer>
