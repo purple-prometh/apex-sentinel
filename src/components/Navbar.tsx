@@ -1,18 +1,20 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
-import SafeManLogo from "./SafeManLogo";
+import { Menu, X, Languages } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import safemanLogo from "@/assets/safeman-logo.png";
 
 const navLinks = [
-  { label: "Platform", href: "/platform" },
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Modules", href: "/modules" },
+  { labelKey: "nav.platform", href: "/platform" },
+  { labelKey: "nav.dashboard", href: "/dashboard" },
+  { labelKey: "nav.modules", href: "/modules" },
 ];
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { lang, toggleLang, t } = useLanguage();
 
   return (
     <motion.nav
@@ -23,7 +25,7 @@ const Navbar = () => {
     >
       <div className="container flex items-center justify-between h-16">
         <Link to="/">
-          <SafeManLogo size="sm" />
+          <img src={safemanLogo} alt="Safe-Man" className="h-8 w-auto" />
         </Link>
 
         {/* Desktop */}
@@ -38,14 +40,26 @@ const Navbar = () => {
                   : "text-muted-foreground hover:text-foreground"
               }`}
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
+
+          {/* Language Toggle */}
+          <button
+            onClick={toggleLang}
+            className="flex items-center gap-2 px-3 py-1.5 rounded border border-border/50 text-xs font-mono tracking-wider text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all duration-300"
+          >
+            <Languages className="w-3.5 h-3.5" />
+            <span className={lang === "en" ? "text-primary" : ""}>EN</span>
+            <span className="text-border">/</span>
+            <span className={lang === "ka" ? "text-primary" : ""}>KA</span>
+          </button>
+
           <Link
             to="/dashboard"
             className="px-5 py-2 text-sm font-display font-semibold tracking-wider uppercase bg-primary/10 border border-primary/30 rounded text-primary hover:bg-primary/20 transition-all duration-300 glow-border-blue"
           >
-            Command Center
+            {t("nav.commandCenter")}
           </Link>
         </div>
 
@@ -73,9 +87,16 @@ const Navbar = () => {
                 onClick={() => setMobileOpen(false)}
                 className="text-sm font-mono tracking-wider uppercase text-muted-foreground hover:text-primary transition-colors"
               >
-                {link.label}
+                {t(link.labelKey)}
               </Link>
             ))}
+            <button
+              onClick={toggleLang}
+              className="flex items-center gap-2 text-sm font-mono tracking-wider text-muted-foreground hover:text-primary transition-colors"
+            >
+              <Languages className="w-4 h-4" />
+              {lang === "en" ? "ქართული" : "English"}
+            </button>
           </div>
         </motion.div>
       )}
