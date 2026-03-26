@@ -9,6 +9,7 @@ const navLinks = [
   { labelKey: "nav.platform", href: "/platform" },
   { labelKey: "nav.dashboard", href: "/dashboard" },
   { labelKey: "nav.training", href: "/training" },
+  { labelKey: "nav.services", href: "/services" },
   { labelKey: "nav.modules", href: "/modules" },
 ];
 
