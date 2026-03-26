@@ -8,6 +8,7 @@ import safemanLogo from "@/assets/safeman-logo.png";
 const navLinks = [
   { labelKey: "nav.platform", href: "/platform" },
   { labelKey: "nav.dashboard", href: "/dashboard" },
+  { labelKey: "nav.training", href: "/training" },
   { labelKey: "nav.modules", href: "/modules" },
 ];
 
